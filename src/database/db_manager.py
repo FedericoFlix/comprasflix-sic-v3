@@ -1,22 +1,30 @@
 import sqlite3
-from pathlib import Path
+import os
 
-DB_PATH = Path(__file__).resolve().parents[2] / "data" / "database.db"
+DB_PATH = os.path.join(os.path.dirname(__file__), "../../database/sic.db")
 
-class DatabaseManager:
-    def __init__(self):
-        self.conn = sqlite3.connect(DB_PATH)
-        self.cursor = self.conn.cursor()
+def conectar():
+    """Devuelve una conexión a la base de datos"""
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    return sqlite3.connect(DB_PATH)
 
-    def execute(self, query, params=None):
-        if params is None:
-            params = ()
-        self.cursor.execute(query, params)
-        self.conn.commit()
-        return self.cursor
+def crear_tablas():
+    """Crea las tablas si no existen"""
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS compras (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fecha TEXT NOT NULL,
+            proveedor TEXT NOT NULL,
+            detalle TEXT,
+            monto REAL NOT NULL,
+            estado TEXT DEFAULT 'pendiente'
+        )
+    """)
+    conn.commit()
+    conn.close()
 
-    def fetch_all(self, query, params=None):
-        return self.execute(query, params).fetchall()
-
-    def close(self):
-        self.conn.close()
+if __name__ == "__main__":
+    crear_tablas()
+    print("✅ Base de datos inicializada correctamente.")
