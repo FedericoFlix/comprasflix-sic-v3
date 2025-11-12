@@ -1,12 +1,12 @@
 # Entorno virtual
 venv/
-__pycache__/
-*.pyc
 
-# Configuración y credenciales
+# Archivos sensibles
+mycreds.txt
 client_secrets.json
-credentials.json
+*.db
 
 # Archivos temporales
-*.log
-.DS_Store
+__pycache__/
+*.pyc
+backups/
