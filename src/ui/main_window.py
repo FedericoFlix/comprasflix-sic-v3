@@ -4,8 +4,9 @@ from tkinter import scrolledtext
 from tkcalendar import DateEntry
 import sqlite3
 from datetime import datetime
-
 import os
+from src.drive.drive_sync import subir_base
+
 
 # Calcula la ruta absoluta del archivo de base de datos
 DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../database/database.db"))
@@ -80,6 +81,9 @@ def cargar_sic():
     entry_numero_sic.delete(0, tk.END)
     entry_numero_sic.insert(0, generar_numero_sic())
     entry_numero_sic.config(state="readonly")
+
+    subir_base()
+
 
 
 # ---- Ventana principal ----

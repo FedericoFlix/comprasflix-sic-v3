@@ -1,6 +1,11 @@
 import os
 import sys
 import subprocess
+from src.drive.drive_sync import sincronizar_normalizado as sincronizar
+
+sincronizar()
+
+
 
 def main():
     # Ruta absoluta a la carpeta raíz del proyecto
