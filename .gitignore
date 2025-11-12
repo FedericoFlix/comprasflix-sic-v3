@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.db
+*.txt
+client_secrets.json
+mycreds.txt
+backups/
+.env
