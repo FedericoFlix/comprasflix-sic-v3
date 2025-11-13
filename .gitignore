@@ -37,3 +37,11 @@ database/database.db
 # --------------------
 .DS_Store
 Thumbs.db
+borr____client_secrets.json
+credentials.json
+*.env
+config.json
+database/database.db
+venv/
+__pycache__/
+*.pyc
