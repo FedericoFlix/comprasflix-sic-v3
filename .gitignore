@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 venv/
 __pycache__/
 *.pyc
@@ -7,3 +8,69 @@ client_secrets.json
 mycreds.txt
 backups/
 .env
+=======
+# Entorno virtual
+venv/
+
+# Archivos sensibles
+mycreds.txt
+client_secrets.json
+credentials.json
+*.db
+
+# Archivos temporales
+__pycache__/
+*.pyc
+backups/
+
+
+# --------------------
+# Entorno virtual
+# --------------------
+venv/
+__pycache__/
+*.pyc
+
+# --------------------
+# Archivos de configuración / credenciales
+# --------------------
+credentials.json
+*.env
+config.json
+
+# --------------------
+# Base de datos local
+# --------------------
+database/database.db
+
+# --------------------
+# Archivos del sistema
+# --------------------
+.DS_Store
+Thumbs.db
+borr____client_secrets.json
+credentials.json
+*.env
+config.json
+database/database.db
+venv/
+__pycache__/
+*.pyc
+
+borr____client_secrets.json
+credentials.json
+*.env
+config.json
+database/database.db
+venv/
+__pycache__/
+*.pyc
+# Archivos locales y tokens
+token.json
+credentials.json
+database.db
+
+# Carpeta de entorno virtual
+venv/
+__pycache__/
+>>>>>>> sic-funcional
