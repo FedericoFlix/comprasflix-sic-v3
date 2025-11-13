@@ -5,6 +5,8 @@ import sqlite3
 from datetime import datetime
 import os
 from src.drive.drive_sync import subir_base
+from src.mail.mailer import enviar_correo
+
 
 # -------------------------------
 # Configuración de base de datos
@@ -126,6 +128,23 @@ def cargar_sic():
     entry_numero_sic.delete(0, tk.END)
     entry_numero_sic.insert(0, generar_numero_sic())
     entry_numero_sic.config(state="readonly")
+   
+    # -------------------------------
+    # Envío de correo con los datos
+    # -------------------------------
+    try:
+        materiales = []
+        for linea in lineas:
+            partes = linea.split("\t")
+            if len(partes) == 5:
+                _, planta, material, cantidad, unidad = partes
+                materiales.append((material, cantidad, unidad))
+        
+        # Enviar el mail con la info
+        enviar_correo(numero_sic, planta, fecha_necesidad, materiales)
+    except Exception as e:
+        print(f"⚠️ Error al intentar enviar el correo: {e}")
+
 
     subir_base()
 

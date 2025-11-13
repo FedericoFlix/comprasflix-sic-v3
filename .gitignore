@@ -45,3 +45,20 @@ database/database.db
 venv/
 __pycache__/
 *.pyc
+
+borr____client_secrets.json
+credentials.json
+*.env
+config.json
+database/database.db
+venv/
+__pycache__/
+*.pyc
+# Archivos locales y tokens
+token.json
+credentials.json
+database.db
+
+# Carpeta de entorno virtual
+venv/
+__pycache__/
