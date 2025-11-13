@@ -4,9 +4,36 @@ venv/
 # Archivos sensibles
 mycreds.txt
 client_secrets.json
+credentials.json
 *.db
 
 # Archivos temporales
 __pycache__/
 *.pyc
 backups/
+
+
+# --------------------
+# Entorno virtual
+# --------------------
+venv/
+__pycache__/
+*.pyc
+
+# --------------------
+# Archivos de configuración / credenciales
+# --------------------
+credentials.json
+*.env
+config.json
+
+# --------------------
+# Base de datos local
+# --------------------
+database/database.db
+
+# --------------------
+# Archivos del sistema
+# --------------------
+.DS_Store
+Thumbs.db
