@@ -38,7 +38,9 @@ def obtener_usuarios():
 
 def cargar_sic():
     try:
-        solicitante = combo_solicitante.get()
+          
+        # solicitante = combo_solicitante.get()
+        solicitante = solicitante_fijo
         fecha_necesidad = date_necesidad.get_date()
         datos_texto = text_datos.get("1.0", tk.END).strip()
 
@@ -72,15 +74,22 @@ def cargar_sic():
         for r in registros:
             oc, planta, material, cantidad, unidad = r[:5]
             cursor.execute("""
-                INSERT INTO Solicitudes (numero_sic, fecha_solicitud, OC, Planta, Material, Cantidad, Unidad, Estado)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (numero_sic, fecha_solicitud, oc, planta, material, cantidad, unidad, "Solicitado"))
+            INSERT INTO Solicitudes (numero_sic, fecha_solicitud, fecha_necesidad, OC, Planta, Material, Cantidad, Unidad, Estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+             """, (numero_sic, fecha_solicitud, fecha_necesidad, oc, planta, material, cantidad, unidad, "Solicitado"))
+
 
         conn.commit()
         conn.close()
 
         messagebox.showinfo("Éxito", f"SIC {numero_sic} cargada correctamente con {len(registros)} ítems.")
+
+        # Limpiar área de texto y actualizar número de SIC
         text_datos.delete("1.0", tk.END)
+        entry_numero_sic.config(state="normal")
+        entry_numero_sic.delete(0, tk.END)
+        entry_numero_sic.insert(0, generar_numero_sic())
+        entry_numero_sic.config(state="readonly")
 
         # Sincroniza con Drive automáticamente
         try:
@@ -90,8 +99,7 @@ def cargar_sic():
             print(f"⚠️ No se pudo sincronizar con Drive: {e}")
 
     except Exception as e:
-        messagebox.showerror("Error", f"Ocurrió un problema: {e}")
-
+        messagebox.showerror("Error", f"Ocurrió un error al cargar la SIC: {e}")
 
 
 
@@ -113,13 +121,24 @@ entry_numero_sic.insert(0, generar_numero_sic())
 entry_numero_sic.config(state="readonly")
 entry_numero_sic.pack(side=tk.LEFT)
 
-# Solicitante
+    # Solicitante
+        #frame_solicitante = tk.Frame(root)
+        #frame_solicitante.pack(pady=5)
+        #tk.Label(frame_solicitante, text="Solicitante:").pack(side=tk.LEFT, padx=5)
+        #usuarios = [u[1] for u in obtener_usuarios()]
+        #combo_solicitante = ttk.Combobox(frame_solicitante, values=usuarios, state="readonly", width=30)
+        #combo_solicitante.pack(side=tk.LEFT)
+
+# Solicitante fijo
 frame_solicitante = tk.Frame(root)
 frame_solicitante.pack(pady=5)
 tk.Label(frame_solicitante, text="Solicitante:").pack(side=tk.LEFT, padx=5)
-usuarios = [u[1] for u in obtener_usuarios()]
-combo_solicitante = ttk.Combobox(frame_solicitante, values=usuarios, state="readonly", width=30)
-combo_solicitante.pack(side=tk.LEFT)
+
+solicitante_fijo = "Federico"
+entry_solicitante = tk.Entry(frame_solicitante, width=30)
+entry_solicitante.insert(0, solicitante_fijo)
+entry_solicitante.config(state="readonly")  # No editable
+entry_solicitante.pack(side=tk.LEFT)
 
 # Fecha de necesidad
 frame_fecha = tk.Frame(root)
